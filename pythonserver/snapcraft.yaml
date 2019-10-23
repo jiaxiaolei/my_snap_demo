@@ -1,0 +1,20 @@
+name: pythonserver
+version: 1.0
+summary: a simple python server
+description: This is the webserver API in python demo
+icon: icon.png
+
+apps:
+  mywebserver:
+    command: bin/server
+    plugs: [ network-client, network-service ]
+
+parts:
+  server:
+    plugin: python
+    source: .
+
+  source:
+    plugin: copy
+    files:
+      ./server.py: bin/server
