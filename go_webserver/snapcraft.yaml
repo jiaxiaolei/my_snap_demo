@@ -1,0 +1,18 @@
+name: go-webserver
+icon: go.png
+version: 1.0.7
+summary: Go webserver
+description: This is a simple go webserver. It is a service
+
+apps:
+  server:
+    command: bin/golang-http
+    plugs: [network-client, network-service]
+
+parts:
+  server:
+    plugin: go
+    source: https://github.com/liu-xiao-guo/golang-http.git 
+    #source: github.com/liu-xiao-guo/golang-http
+    source-type: git
+
