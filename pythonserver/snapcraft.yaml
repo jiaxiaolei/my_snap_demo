@@ -2,6 +2,8 @@ name: pythonserver
 version: 1.0
 summary: a simple python server
 description: This is the webserver API in python demo
+confinement: strict
+grade: stable
 icon: icon.png
 
 apps:

@@ -104,6 +104,7 @@ venv.bak/
 .mypy_cache/
 
 *.snap
+
 */*/bin/
 */*/stage/
 */*/prime/
@@ -113,4 +114,3 @@ venv.bak/
 */stage/
 */prime/
 */snap/
-
