@@ -1,5 +1,5 @@
 name: pythonserver
-version: 1.0
+version: 2.0
 summary: a simple python server
 description: This is the webserver API in python demo
 confinement: strict
@@ -9,7 +9,10 @@ icon: icon.png
 apps:
   mywebserver:
     command: bin/server
-    plugs: [ network-client, network-service ]
+    #plugs: [ network-client, network-service ]
+    plugs: 
+    - network-bind
+    - network
 
 parts:
   server:
