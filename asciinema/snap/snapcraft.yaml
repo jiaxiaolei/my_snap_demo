@@ -1,0 +1,19 @@
+name: asciinema
+version: 'latest'
+summary: One-line elevator pitch for asciinema
+description: |
+ You can write a longer 
+ multi-line paragraph in here.
+
+grade: stable
+confinement: classic
+
+apps:
+  asciinema:
+    command: asciinema
+
+parts:
+  asciinema:
+    source: https://github.com/asciinema/asciinema.git
+    plugin: python
+    python-version: 'python3'
