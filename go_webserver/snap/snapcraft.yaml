@@ -7,12 +7,16 @@ description: This is a simple go webserver. It is a service
 apps:
   server:
     command: bin/golang-http
-    plugs: [network-client, network-service]
+    #plugs: [network-client, network-service]
+    plugs: 
+     - network 
+     - network-bind 
+     - network-observe
 
 parts:
   server:
     plugin: go
-    source: https://github.com/liu-xiao-guo/golang-http.git 
+    source: https://github.com/liu-xiao-guo/golang-http 
     #source: github.com/liu-xiao-guo/golang-http
     source-type: git
 
