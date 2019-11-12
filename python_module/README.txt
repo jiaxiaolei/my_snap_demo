@@ -1,0 +1,6 @@
+
+
+
+--------
+
+$ snapcraft init 
