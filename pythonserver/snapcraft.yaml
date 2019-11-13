@@ -9,6 +9,7 @@ icon: icon.png
 apps:
   mywebserver:
     command: bin/server
+    #command: python bin/server # do not work
     #plugs: [ network-client, network-service ]
     plugs: 
     - network-bind
@@ -19,7 +20,13 @@ parts:
     plugin: python
     source: .
 
+  #source:
+  #  plugin: copy
+  #  files:
+  #    ./server.py: bin/server
+
   source:
-    plugin: copy
-    files:
-      ./server.py: bin/server
+    plugin: dump 
+    source: . 
+    organize:
+      server.py: bin/server
