@@ -1,0 +1,22 @@
+name: click-parser
+version: "5.0.5"
+summary: Extract data from Ubuntu's click & snap packages
+description: Extract data from Ubuntu's click & snap packages
+confinement: classic 
+#confinement: devmode 
+#confinement: strict
+
+apps:
+  click-parser:
+    command: bin/click-parser
+    plugs: [home]
+
+parts:
+  click-parser:
+    plugin: nodejs
+    node-packages:
+      - click-parser
+    build-packages:
+      - python
+      - build-essential
+      - liblzma-dev
