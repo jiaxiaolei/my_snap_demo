@@ -3,7 +3,7 @@
 
 atom:
 
-自动下载比较慢，这里安装了 atom-1.8.0
+使用 $ snap install 自动下载比较慢，这里收到安装了 atom-1.8.0
 
 DEPRECATED: Custom plugins should now be placed in 'snap/plugins'.
 
