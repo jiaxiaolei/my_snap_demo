@@ -24,9 +24,11 @@ parts:
         #build-snaps:
         #- java
 
-        stage-packages:
-         - jdk
+        #stage-packages:
+        # - jdk
         #- java
+        #configflags:
+        # - "-JAVA_HOME="
 
     #local-files:
     #    plugin: make
