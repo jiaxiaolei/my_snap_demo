@@ -1,0 +1,33 @@
+name: tomcat-webapp-demo
+version: 1.0
+architectures:
+ - amd64
+summary: Demo of Tomcat-hosted Webapp
+confinement: devmode 
+description: This is a demo snap of a Tomcat-hosted webapp produced by snapcraft with maven.
+
+apps:
+ tomcat:
+   command: bin/startup.sh
+   #command: bin/wrapper
+   #daemon: simple
+   plugs: [network-bind]
+
+
+parts:
+    tomcat:
+        plugin: dump
+        source: apache-tomcat-8.0.29
+        #source: ../apache-tomcat-8.0.29
+        source-type: local
+
+    #local-files:
+    #    plugin: make
+    #    source: .
+
+
+
+
+
+
+
