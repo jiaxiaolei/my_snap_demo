@@ -14,10 +14,12 @@ apps:
     plugs: 
     - network-bind
     - network
+    
 
 parts:
   server:
     plugin: python
+    # NOTE: default python3
     source: .
 
   #source:
