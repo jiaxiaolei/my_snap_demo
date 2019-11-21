@@ -1,10 +1,10 @@
-name: tomcat-webapp-demo
-version: 1.0
+name: tomcat
+version: 8.0.29
 architectures:
  - amd64
-summary: Demo of Tomcat-hosted Webapp
+summary: A snap for tomcat 
 confinement: devmode 
-description: This is a demo snap of a Tomcat-hosted webapp produced by snapcraft with maven.
+description: This is a demo snap produced by snapcraft.
 
 apps:
  tomcat:
@@ -20,6 +20,13 @@ parts:
         source: apache-tomcat-8.0.29
         #source: ../apache-tomcat-8.0.29
         source-type: local
+
+        #build-snaps:
+        #- java
+
+        stage-packages:
+         - jdk
+        #- java
 
     #local-files:
     #    plugin: make
