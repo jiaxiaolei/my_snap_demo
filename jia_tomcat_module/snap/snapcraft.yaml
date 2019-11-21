@@ -1,0 +1,123 @@
+
+name: tomcat-webapp-demo
+version: 1.0
+architectures:
+ - amd64
+summary: Demo of Tomcat-hosted Webapp
+confinement: strict
+description: This is a demo snap of a Tomcat-hosted webapp produced by snapcraft with maven.
+
+apps:
+ tomcat:
+   command: bin/wrapper
+   daemon: simple
+   plugs: [network-bind]
+
+ # MySQL daemon
+ mysql:
+   command: start_mysql
+   stop-command: support-files/mysql.server stop
+   daemon: simple
+   plugs: [network, network-bind]
+
+ # MySQL client
+ mysql-client:
+#   command: mysql --defaults-file=$SNAP_DATA/mysql/root.ini
+#   command: mysql --protocol=TCP -u root -p
+   command: mysql --defaults-file=$SNAP_DATA/mysql/root.ini --protocol=TCP
+   plugs: [network, network-bind]
+
+parts:
+    webapp:
+        plugin: maven
+        source: https://github.com/liu-xiao-guo/jsp_table.git
+        source-type: git
+    tomcat:
+        plugin: dump
+        source: https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.29/bin/apache-tomcat-8.0.29.tar.gz
+    local-files:
+        plugin: make
+        source: .
+
+
+    # Download the boost headers for MySQL. Note that the version used may need to
+    # be updated if the version of MySQL changes.
+    boost:
+        plugin: copy
+        source: http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
+        files:
+          '*': boost/
+        snap:
+          - -*
+
+    mysql:
+        plugin: cmake
+        source: https://github.com/kyrofa/mysql-server.git
+        source-type: git
+        source-branch: feature/support_no_setpriority
+        after: [boost]
+        configflags:
+          - -DWITH_BOOST=$SNAPCRAFT_STAGE/boost
+          - -DWITH_INNODB_PAGE_CLEANER_PRIORITY=OFF
+          - -DCMAKE_INSTALL_PREFIX=/
+          - -DBUILD_CONFIG=mysql_release
+          - -DWITH_UNIT_TESTS=OFF
+          - -DWITH_EMBEDDED_SERVER=OFF
+          - -DWITH_EMBEDDED_SHARED_LIBRARY=OFF
+          - -DWITH_ARCHIVE_STORAGE_ENGINE=OFF
+          - -DWITH_BLACKHOLE_STORAGE_ENGINE=OFF
+          - -DWITH_FEDERATED_STORAGE_ENGINE=OFF
+          - -DWITH_PARTITION_STORAGE_ENGINE=OFF
+          - -DINSTALL_MYSQLTESTDIR=
+        build-packages:
+          - wget
+          - g++
+          - cmake
+          - bison
+          - libncurses5-dev
+          - libaio-dev
+        stage:
+         # Remove scripts that we'll be replacing with our own
+          - -support-files/mysql.server
+        snap:
+         # Remove scripts that we'll be replacing with our own
+         - -support-files/mysql.server
+
+
+
+         # Remove unused binaries that waste space
+         - -bin/innochecksum
+         - -bin/lz4_decompress
+         - -bin/myisam*
+         - -bin/mysqladmin
+         - -bin/mysqlbinlog
+         - -bin/mysql_client_test
+         - -bin/mysql_config*
+         - -bin/mysqld_multi
+         - -bin/mysqldump*
+         - -bin/mysqlimport
+         - -bin/mysql_install_db
+         - -bin/mysql_plugin
+         - -bin/mysqlpump
+         - -bin/mysql_secure_installation
+         - -bin/mysqlshow
+         - -bin/mysqlslap
+         - -bin/mysql_ssl_rsa_setup
+         - -bin/mysqltest
+         - -bin/mysql_tzinfo_to_sql
+         - -bin/perror
+         - -bin/replace
+         - -bin/resolveip
+         - -bin/resolve_stack_dump
+         - -bin/zlib_decompress
+
+    # Copy over our MySQL scripts
+    mysql-customizations:
+        plugin: copy
+        files:
+           # This one is what creates the initial database and account for ownCloud.
+           src/mysql/start_mysql: bin/
+           src/mysql/my.cnf: my.cnf
+           src/mysql/mysql.server: support-files/
+           sample.war: war/sample.war
+           mysql-connector-java-6.0.3.jar: lib/mysql-connector-java-6.0.3.jar
