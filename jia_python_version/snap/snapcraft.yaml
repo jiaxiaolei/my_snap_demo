@@ -1,0 +1,30 @@
+
+name: python36
+version: '0.1'
+summary: This is a simple example not using python plugin
+description: |
+  This is a python3 example
+
+grade: stable
+#confinement: strict
+confinement: devmode 
+
+apps:
+  python:
+    command: python3
+  python-version:
+    command: python3 --version
+
+parts:
+  #my-python-app:
+  #  source: https://github.com/liu-xiao-guo/python-helloworld.git
+  #  plugin: python
+  #  after: [python]
+  python:
+    source: https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+    plugin: autotools
+    configflags: [--prefix=/usr]
+    build-packages: [libssl-dev]
+    prime:
+      - -usr/include
+
