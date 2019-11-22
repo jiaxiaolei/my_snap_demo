@@ -1,0 +1,37 @@
+name: oraclejava 
+version: '0.1'
+summary: oracle jdk
+description: |
+  This is a oracle jdk example
+
+grade: stable
+#confinement: strict
+confinement: devmode
+
+apps:
+  oraclejava:
+    command: bin/java
+ 
+  version:
+    command: bin/java -version
+
+parts:
+  #my-python-app:
+  #  source: https://github.com/liu-xiao-guo/python-helloworld.git
+  #  plugin: python
+  #  after: [python]
+
+  java:
+    plugin: dump 
+    source: jdk1.8.0_231  
+    source-type: local
+ 
+
+  #java:
+  #  source: jdk1.8.0_231  
+  #  plugin: autotools
+  #  configflags: [--prefix=/usr]
+  #  build-packages: [libssl-dev]
+  #  #prime:
+  #  #  - -usr/include
+
