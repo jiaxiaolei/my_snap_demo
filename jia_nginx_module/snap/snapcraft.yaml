@@ -1,0 +1,110 @@
+name: nginx # you probably want to 'snapcraft register <name>'
+version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
+summary: naginx env with modules # 79 char long summary
+description: |
+  This is my-snap's description. You have a paragraph or two to tell the
+  most important story about your snap. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the snap
+  store.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+#
+#apps:
+#    nginx:
+#      command: nginx 
+#      plugs:
+#        - network
+#        - home 
+#
+#parts:
+#  my-part:
+#    # See 'snapcraft plugins'
+#    plugin: jdk 
+#
+apps:
+ nginx:
+   #command: bin/startup.sh
+   command: nginx
+   #command: bin/wrapper
+   #daemon: simple
+   plugs: [network-bind, home, network]
+   #environment:
+   #   "LD_LIBRARY_PATH": "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio"
+   #   "DISABLE_WAYLAND": "1"
+
+
+parts:
+    nginx:
+        plugin: autotools
+        #plugin: dump
+        source: nginx-1.16.1
+        #source: ../apache-tomcat-8.0.29
+        source-type: local
+
+        build-packages:
+          - g++
+          - make
+          - libsdl1.2-dev
+          - libpng-dev
+          - libsdl-net1.2-dev
+          - libsdl-sound1.2-dev
+          - libasound2-dev
+        stage-packages:
+          - libsdl-sound1.2
+          - libsdl-net1.2
+          - libxcursor1
+          - libxi6
+          - libxinerama1
+          - libxrandr2
+          - libxrender1
+          - libopenal1
+          - libsndio6.1
+          - libspeex1
+          - libvorbisfile3
+          - libwayland-client0
+          - libwayland-cursor0
+          - libwayland-egl1-mesa
+          - libxkbcommon0
+          - libglu1-mesa
+          - libasound2
+          - libasyncns0
+          - libbsd0
+          - libcaca0
+          - libdbus-1-3
+          - libflac8
+          - libgcc1
+          - libgcrypt20
+          - libgl1
+          #- libglvnd0
+          #- libglx0
+          - libgpg-error0
+          - liblz4-1
+          - liblzma5
+          - libncursesw5
+          - libogg0
+          - libpng16-16
+          - libpulse0
+          - libsdl1.2debian
+          - libslang2
+          - libsndfile1
+          - libstdc++6
+          - libsystemd0
+          - libtinfo5
+          - libvorbis0a
+          - libvorbisenc2
+          - libwrap0
+          - libx11-6
+          - libxau6
+          - libxcb1
+          - libxdmcp6
+          - libxext6
+          - zlib1g
+
+        
+
+        #configflags:
+
+
+
