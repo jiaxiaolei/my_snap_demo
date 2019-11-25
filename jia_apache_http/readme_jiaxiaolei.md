@@ -53,3 +53,38 @@ https://www.cnblogs.com/xiaoyaowuming/p/5945981.html
 
 xxx
 
+
+
+
+https://apr.apache.org/
+
+简介：
+提供了 apr, apr-util 的内容...
+
+
+wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-1.7.0.tar.gz
+
+wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-util-1.6.1.tar.gz
+
+
+
+apr-1.7.0
+
+apr-util-1.6.1
+
+
+ --with-apr
+
+
+apache安装Apr的作用
+
+https://blog.csdn.net/qq_32447301/article/details/80891414
+
+简介：
+
+1.什么是APR
+
+要测APR给tomcat带来的好处最好的方法是在慢速网络上（模拟Internet），将Tomcat线程数开到300以上的水平，然后模拟一大堆并发请求。如果不配APR，基本上300个线程狠快就会用满，以后的请求就只好等待。但是配上APR之后，并发的线程数量明显下降，从原来的300可能会马上下降到只有几十，新的请求会毫无阻塞的进来。APR对于Tomcat最大的作用就是socket调度。你在局域网环境测，就算是400个并发，也是一瞬间就处理/传输完毕，但是在真实的Internet环境下，页面处理时间只占0.1%都不到，绝大部分时间都用来页面传输。如果不用APR，一个线程同一时间只能处理一个用户，势必会造成阻塞。所以生产环境下用apr是非常必要的。
+
+
+
