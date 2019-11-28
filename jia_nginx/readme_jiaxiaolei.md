@@ -1,5 +1,16 @@
 
 
+======
+
+TODO:
+
+start
+
+stop
+
+
+
+
 nginx 涉及到的参数...
 
 root@sheo2-consul1:/etc/nginx# nginx -h
