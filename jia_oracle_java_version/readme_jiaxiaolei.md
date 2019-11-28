@@ -7,6 +7,16 @@ oracle openjdk
 
 
 
+源码下载：
+
+http://jdk.java.net/java-se-ri/8
+
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+
+
+
+
 这些告警严重吗？
 
 root@sltxyl1apzv:~/my_snap_demo/jia_oracle_java_version# snapcraft
