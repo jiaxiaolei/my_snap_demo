@@ -1,0 +1,124 @@
+
+
+name: koruza
+version: "0.1"
+summary: KORUZA
+description: Control applications for KORUZA.
+architectures:
+  - armhf
+confinement: strict
+
+parts:
+  raspberrypi:
+    plugin: cmake
+    source: https://github.com/raspberrypi/userland.git
+  libubox:
+    plugin: cmake
+    configflags:
+      - "-DBUILD_LUA=OFF" 
+      - "-DBUILD_EXAMPLES=OFF"
+    source: https://git.lede-project.org/project/libubox.git
+    source-type: git
+    build-packages:
+      - pkg-config
+      #- libjson-c3
+      - libjson-c-dev
+  ubus:
+    after: [libubox]
+    plugin: cmake
+    configflags:
+      - "-DBUILD_LUA=OFF"
+      - "-DBUILD_EXAMPLES=OFF"
+    source: https://git.lede-project.org/project/ubus.git
+    source-type: git
+    build-packages:
+      #- libjson-c3
+      - libjson-c-dev
+  uci:
+    after: [libubox]
+    plugin: cmake
+    configflags:
+      - "-DBUILD_LUA=OFF"
+    source: https://git.lede-project.org/project/uci.git
+    source-type: git
+    source-commit: 49ec6efbdac4819033d34f08927d795f83a3932d
+  rpcd:
+    after: [ubus, uci]
+    plugin: cmake
+    configflags:
+      - "-DFILE_SUPPORT=OFF"
+      - "-DIWINFO_SUPPORT=OFF"
+      - "-DRPCSYS_SUPPORT=OFF"
+    source: https://git.lede-project.org/project/rpcd.git
+    source-type: git
+  uhttpd:
+    after: [ubus]
+    plugin: cmake
+    configflags:
+      - "-DLUA_SUPPORT=OFF"
+      - "-DTLS_SUPPORT=OFF"
+    source: https://git.lede-project.org/project/uhttpd.git
+    source-type: git
+    source-commit: e6cfc911811b904494776938a480e0b77a14124a
+    build-packages:
+      #- libjson-c3
+      - libjson-c-dev
+    prepare: |
+      cd ../src
+      sed -i 's|_BSD_SOURCE|_DEFAULT_SOURCE|g' *.c
+  koruza-driver:
+    after: [ubus, uci]
+    plugin: cmake
+    source: https://github.com/IRNAS/koruza-driver.git
+    source-type: git
+  sfp-driver:
+    after: [ubus, uci]
+    plugin: cmake
+    source: https://github.com/IRNAS/sfp-driver.git
+    source-type: git
+  koruza-ui:
+    plugin: dump
+    source: https://github.com/IRNAS/koruza-ui.git
+    source-type: git
+    organize:
+      'dist/*': srv/www/
+      favicon.ico: srv/www/favicon.ico
+  mjpg-streamer:
+    after: [raspberrypi]
+    plugin: cmake
+    source: https://github.com/IRNAS/mjpg-streamer.git
+    source-type: git
+    source-commit: de5e2577c181dce21942eec4af020fce554b1647
+    source-subdir: mjpg-streamer-experimental
+    build-packages:
+      - libjpeg-dev
+    prepare: |
+      cd ../src
+      sed -i 's|/opt|$SNAPCRAFT_STAGE/opt|g' mjpg-streamer-experimental/plugins/input_raspicam/CMakeLists.txt
+  nodewatcher-agent:
+    after: [ubus, uci]
+    plugin: cmake
+    configflags:
+      - "-DWIRELESS_MODULE=OFF"
+      - "-DINTERFACES_MODULE=OFF"
+      - "-DPACKAGES_MODULE=OFF"
+      - "-DCLIENTS_MODULE=OFF"
+      - "-DROUTING_BABEL_MODULE=OFF"
+      - "-DROUTING_OLSR_MODULE=OFF"
+      - "-DKEYS_SSH_MODULE=OFF"
+    source: https://github.com/wlanslovenija/nodewatcher-agent.git
+    source-type: git
+    build-packages:
+      - libcurl3
+      - libcurl4-openssl-dev
+  koruza-nodewatcher-agent:
+    after: [nodewatcher-agent]
+    plugin: cmake
+    source: https://github.com/IRNAS/koruza-nodewatcher-agent.git
+    source-type: git
+  sfp-nodewatcher-agent:
+    after: [nodewatcher-agent]
+    plugin: cmake
+    source: https://github.com/IRNAS/sfp-nodewatcher-agent.git
+    source-type: git
+
