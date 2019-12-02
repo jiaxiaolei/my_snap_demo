@@ -65,7 +65,7 @@ Unable to init server: Could not connect: Connection refused
 
 
 
-在 ubuntu desktop 可以出现输入款，但是用我的百度云账号登陆不了...
+在 ubuntu desktop 可以出现输入框，但是用我的百度云账号登陆不了...
 
 
 
