@@ -1,0 +1,16 @@
+name: helloalchemy
+version: 1.0
+summary: This is a demo of how to do cross compilation using alchemy plugin
+description: This is a demo of how to do cross compilation using alchemy plugin
+architectures: [armhf]
+
+apps:
+  foreground:
+    command: usr/bin/hello
+
+parts:
+  helloalchemy:
+    plugin: alchemy
+    source: https://github.com/fallen/hello_world_alchemy.git
+    source-type: git
+# you can specify extra alchemy dependencies using dependencies: option
