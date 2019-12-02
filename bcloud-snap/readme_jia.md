@@ -1,5 +1,7 @@
 
+来源：
 
+https://github.com/liu-xiao-guo/bcloud-snap
 
 -----
 snapcraft 中的目录：
