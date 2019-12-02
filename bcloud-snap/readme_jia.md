@@ -3,6 +3,9 @@
 
 https://github.com/liu-xiao-guo/bcloud-snap
 
+
+https://github.com/Yufeikang/bcloud
+
 -----
 snapcraft 中的目录：
 
