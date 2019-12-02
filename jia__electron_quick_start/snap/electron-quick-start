@@ -1,0 +1,9 @@
+
+#!/bin/bash
+
+# Electron won't start without this
+unset XDG_CONFIG_DIRS
+
+cd $SNAP/lib/node_modules/electron-quick-start
+exec $SNAP/bin/npm start
+

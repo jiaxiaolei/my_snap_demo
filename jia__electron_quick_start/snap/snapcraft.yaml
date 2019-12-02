@@ -1,0 +1,47 @@
+name: electron-quick-start
+version: 1.0
+summary: Electron Quick Start
+description: This is a minimal Electron application based on the
+  Quick Start Guide within the Electron documentation.
+confinement: "strict"
+
+apps:
+  electron-quick-start:
+    command: desktop-launch $SNAP/electron-quick-start.wrapper
+    plugs:
+     - browser-support
+     - network
+     - unity7
+     - gsettings
+     # - home
+     # - pulseaudio
+     # - opengl
+
+parts:
+  src:
+    plugin: nodejs
+    node-packages:
+     - electron
+    source: git://github.com/electron/electron-quick-start
+
+  deps:
+    plugin: nil
+    stage-packages:
+      - libgconf-2-4
+      - libnss3
+      - libxss1
+      - fontconfig-config
+
+  desktop-integration:
+    plugin: nil
+    stage-packages:
+      - libappindicator1
+      - libdbusmenu-glib4
+      - libnotify4
+      - libunity9
+
+  launcher:
+    plugin: copy
+    files:
+      electron-quick-start: electron-quick-start.wrapper
+    after: [desktop-glib-only]
