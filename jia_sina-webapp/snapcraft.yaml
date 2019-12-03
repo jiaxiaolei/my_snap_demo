@@ -1,0 +1,42 @@
+name: sina-webapp
+version: '1.0'
+summary: Sina webapp
+description: |
+  Webapp version of the Sina web application.
+
+grade: stable
+confinement: strict
+
+apps:
+  sina-webapp:
+    command: webapp-launcher --enable-back-forward --webappUrlPatterns=http?://www.sina.com/* http://www.sina.com/ %u
+    plugs:
+      - browser-sandbox
+      - camera
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - screen-inhibit-control
+      - unity7
+      - network-control
+      - mount-observe
+
+plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: false
+  platform:
+    interface: content
+    content: ubuntu-app-platform1
+    target: ubuntu-app-platform
+    default-provider: ubuntu-app-platform
+
+parts:
+  webapp-container:
+    after: [ubuntu-app-platform,webapp-helper]
+    #after: [desktop-ubuntu-app-platform,webapp-helper]
+    stage-packages:
+      - fonts-wqy-zenhei
+      - fcitx-frontend-qt5
+    plugin: nil
