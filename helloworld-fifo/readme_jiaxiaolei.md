@@ -35,7 +35,6 @@ root@sltxyl1apzv:~/my_snap_demo# hello.env
 
 
 
-
 SHELL=/bin/bash
 SNAP_USER_COMMON=/root/snap/hello/common
 TERM=screen.xterm-256color
@@ -74,5 +73,4 @@ XDG_RUNTIME_DIR=/run/user/0/snap.hello
 SNAP=/snap/hello/x1
 LESSCLOSE=/usr/bin/lesspipe %s %s
 SNAP_INSTANCE_KEY=
-
 
