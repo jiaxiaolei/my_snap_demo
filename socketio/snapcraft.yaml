@@ -9,7 +9,7 @@ confinement: strict
 apps:
   socket:
     command: bin/socketio
-    daemon: simple
+    #daemon: simple
     plugs: [network-bind]
 
 parts:
