@@ -1,0 +1,22 @@
+name: test-snap
+version: "1.0"
+summary: test snap
+description: nothing important
+base: core
+
+parts:
+    part1:
+        plugin: make
+        source: source
+        build-packages: [
+            g++,
+        ]
+        stage-packages: [
+            # This package causes liboost-dev to get installed as a stage
+            # package but for simplicity I'm just directly including
+            # libboost-dev for example purposes.
+            # ros-kinetic-image-transport-plugins,
+            libboost-dev,
+        ]
+        stage:
+            - -usr/include
