@@ -1,5 +1,5 @@
 name: nginx
-version: "0.74-svn"
+version: "1.16.1"
 summary: Nginx 
 description: |
   x86 emulator with Tandy/Herc/CGA/EGA/VGA/SVGA graphics, sound and DOS
@@ -15,10 +15,37 @@ confinement: devmode
 
 apps:
   nginx:
-    command: nginx 
-    plugs: [network, network-bind, unity7, opengl, home, pulseaudio]
+    command: sbin/start.sh 
+    #command: nginx  -c $SNAP/conf/nginx.conf
+    #command: nginx  -c $SNAP/conf/nginx.conf --error-log-path=$SNAP/log/nginx/error.log  --http-log-path=$SNAP/log/nginx/access.log
+    #command: nginx  -c $SNAP/nginx-1.16.1/conf/nginx.conf
+    plugs: [network-bind]
+    #plugs: [network, network-bind, unity7, opengl, home, pulseaudio]
+
+  run:
+    command: sbin/nginx -c /var/snap/nginx/current/conf/ginx.conf 
+    #command: nginx  -c $SNAP/conf/nginx.conf
+    #command: nginx  -c $SNAP/conf/nginx.conf --error-log-path=$SNAP/log/nginx/error.log  --http-log-path=$SNAP/log/nginx/access.log
+    #command: nginx  -c $SNAP/nginx-1.16.1/conf/nginx.conf
+    plugs: [network-bind]
+    #plugs: [network, network-bind, unity7, opengl, home, pulseaudio]
+
+  localrun:
+    command: sbin/nginx -c /etc/conf/nginx.conf 
+    #command: nginx  -c $SNAP/conf/nginx.conf
+    #command: nginx  -c $SNAP/conf/nginx.conf --error-log-path=$SNAP/log/nginx/error.log  --http-log-path=$SNAP/log/nginx/access.log
+    #command: nginx  -c $SNAP/nginx-1.16.1/conf/nginx.conf
+    plugs: [network-bind]
+    #plugs: [network, network-bind, unity7, opengl, home, pulseaudio]
 
 parts:
+  source:
+    plugin: dump
+    source: . 
+    organize:
+        start.sh: sbin/start.sh 
+        stop.sh: sbin/stop.sh 
+    source-type: local
   nginx:
     plugin: dump 
     source: nginx-1.16.1/   
